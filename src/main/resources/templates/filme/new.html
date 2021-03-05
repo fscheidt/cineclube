@@ -39,22 +39,22 @@
       <h1>Filmes + Séries</h1>
       <p class="lead">Cadastro de filmes & séries</p>
 
-      <form action="" method="POST">
+      <form th:object="${filme}" action="/filmes/save" method="POST">
 
         <div class="mb-3">
           <label class="form-label" for="nome">Nome</label> 
-          <input type="text" class="form-control" id="nome" placeholder="nome do filme" 
+          <input type="text" th:field="${filme.nome}" class="form-control" id="nome" placeholder="nome do filme" 
           autocomplete="off">
         </div>
         <div class="row">
           <div class="col">
             <label class="form-label" for="ano">Ano</label> 
-            <input type="number" class="form-control" id="ano" placeholder="2017" 
+            <input type="number" th:field="${filme.ano}" class="form-control" id="ano" placeholder="2017" 
             autocomplete="off" required="required" min="1900" max="2030">
           </div>
           <div class="col">
             <label class="form-label" for="categoria">Categoria</label> 
-            <select class="form-select" id="categoria">
+            <select th:field="${filme.categoria}" class="form-select" id="categoria">
               <option value="Action">Action</option>
               <option value="Drama">Drama</option>
               <option value="Sci-fi">Sci-fi</option>
