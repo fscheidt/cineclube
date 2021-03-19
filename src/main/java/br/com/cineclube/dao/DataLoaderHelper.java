@@ -1,5 +1,6 @@
 package br.com.cineclube.dao;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +18,12 @@ public class DataLoaderHelper {
 	public static void loadData(FilmeRepository daof /*, PessoaRepository daop*/) {
 		
 		List<Filme> filmeList = new ArrayList<>();
-		filmeList.add(new Filme("Avatar", 	7f, 	2009, Category.ACTION.name()));
-		filmeList.add(new Filme("Matrix", 	9f, 	1999, Category.SCIFI.name()));
-		filmeList.add(new Filme("Terminator",8f, 	1984, Category.SCIFI.name()));
-		filmeList.add(new Filme("Rock", 	6f, 	1976, Category.ACTION.name()));
-		filmeList.add(new Filme("Titanic", 	4f, 	1997, Category.DRAMA.name()));
-		filmeList.add(new Filme("Alien", 	10f, 	1979, Category.SCIFI.name()));
+		filmeList.add(new Filme("Avatar", 	7f, 	LocalDate.of(2009, 1, 28), Category.ACTION.name()));
+		filmeList.add(new Filme("Matrix", 	9f, 	LocalDate.of(1999, 1, 1), Category.SCIFI.name()));
+		filmeList.add(new Filme("Terminator",8f, 	LocalDate.of(1984, 1, 1), Category.SCIFI.name()));
+		filmeList.add(new Filme("Rock", 	6f, 	LocalDate.of(1976, 1, 1), Category.ACTION.name()));
+		filmeList.add(new Filme("Titanic", 	4f, 	LocalDate.of(1997, 1, 1), Category.DRAMA.name()));
+		filmeList.add(new Filme("Alien", 	10f, 	LocalDate.of(1979, 1, 1), Category.SCIFI.name()));
 		daof.saveAll(filmeList);
 		
 //		List<Pessoa> pessoaList = new ArrayList<>();

@@ -2,9 +2,12 @@ package br.com.cineclube.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,10 +52,13 @@ public class FilmeController {
 		model.addAttribute("filmeList", filmeList);
 		return "filme/list.html";
 	}
-	@PostMapping("/save") // usamos para inserir novo filme & para atualizar
-	public String save(Filme filme, Model model) {
-		// se filme.filmeId existe, dao.save() funciona como update
-		// caso contrario dao.save() funciona como insert 
+	@PostMapping("/save") // usar @Valid para validar o objeto filme
+	public String save(@Valid Filme filme, BindingResult result, Model model) {
+		if(result.hasErrors()) { // se possui algum erro retorna ao formulario
+			model.addAttribute("categories", Category.values());
+			return "filme/new.html";
+		}
+		// se tudo ok, entao salva no db:
 		dao.save(filme);
 		return "redirect:/filmes/list"; // chama action /filmes/list
 	}

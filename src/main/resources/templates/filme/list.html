@@ -58,7 +58,7 @@
           <td>
           	<a th:href="@{/filmes/edit/{id}(id=${filme.filmeId})}" th:text="${filme.nome}"></a>
           </td>
-          <td th:text="${filme.ano}"/>
+          <td th:text="${{filme.lancamento}}"/>
           <td th:text="${filme.categoria}"/>
           <!-- http://localhost:8080/filmes/delete/id/10 -->
           <td><a th:href="@{/filmes/delete/{id}(id=${filme.filmeId})}">
