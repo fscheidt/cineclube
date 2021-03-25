@@ -1,20 +1,14 @@
 package br.com.cineclube.model;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 
@@ -23,7 +17,7 @@ public class Filme {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long filmeId;
+	private Long id;
 
 	@NotBlank(message="Nome campo obrigatorio")
 	@Size(min=1, max=50, message="Minimo de {min} caracteres em maximo de {max}")
@@ -36,19 +30,12 @@ public class Filme {
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private LocalDate lancamento;
 	
-	// REMOVEMOS O CAMPO ANO, PARA USAR O ATRIBUTO LANCAMENTO
-//	private Integer ano; // 2016
-	
-	@Transient // esse campo nao deve ser salvo no BD
-	private Integer idade;
-	
 	@NotBlank
 	private String categoria; // drama, action, ...
 	
 	private Float nota; // 0..10
 
-	public Filme() {
-	}
+	public Filme() {}
 
 	public Filme(String nome, Float nota, LocalDate lancamento, String categoria) {
 		this.nome = nome;
@@ -81,13 +68,6 @@ public class Filme {
 		this.nota = nota;
 	}
 
-	public Long getFilmeId() {
-		return filmeId;
-	}
-
-	public void setFilmeId(Long filmeId) {
-		this.filmeId = filmeId;
-	}
 
 	public LocalDate getLancamento() {
 		return lancamento;
@@ -97,10 +77,12 @@ public class Filme {
 		this.lancamento = lancamento;
 	}
 
-	public Integer getIdade() {
-		// retornar a diferenca em anos entre a data de lançamento e data atual:
-		
-		return (int)ChronoUnit.YEARS.between(this.lancamento, LocalDate.now());
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

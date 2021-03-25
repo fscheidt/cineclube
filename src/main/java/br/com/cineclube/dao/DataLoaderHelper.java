@@ -10,12 +10,13 @@ import org.springframework.stereotype.Service;
 
 import br.com.cineclube.model.Category;
 import br.com.cineclube.model.Filme;
+import br.com.cineclube.model.Pessoa;
 
 //Service => anotacao que identifica que a classe deve ser detectada durante a fase de scanning do classpath
 @Service
 public class DataLoaderHelper {
 	
-	public static void loadData(FilmeRepository daof /*, PessoaRepository daop*/) {
+	public static void loadData(FilmeRepository daof , PessoaRepository daop) {
 		
 		List<Filme> filmeList = new ArrayList<>();
 		filmeList.add(new Filme("Avatar", 	7f, 	LocalDate.of(2009, 1, 28), Category.ACTION.name()));
@@ -26,20 +27,21 @@ public class DataLoaderHelper {
 		filmeList.add(new Filme("Alien", 	10f, 	LocalDate.of(1979, 1, 1), Category.SCIFI.name()));
 		daof.saveAll(filmeList);
 		
-//		List<Pessoa> pessoaList = new ArrayList<>();
-//		pessoaList.add(new Pessoa("Leonard"));
-//		pessoaList.add(new Pessoa("Jake"));
-//		pessoaList.add(new Pessoa("Arnold"));
-//		pessoaList.add(new Pessoa("Kate"));
-//		pessoaList.add(new Pessoa("Anne"));
-//		daop.saveAll(pessoaList);
+		List<Pessoa> pessoaList = new ArrayList<>();
+		pessoaList.add(new Pessoa("Leonard", LocalDate.of(1944, 4, 8)));
+		pessoaList.add(new Pessoa("Jake", 	 LocalDate.of(1999, 11, 28)));
+		pessoaList.add(new Pessoa("Arnold",  LocalDate.of(1962, 11, 15)));
+		pessoaList.add(new Pessoa("Kate", 	 LocalDate.of(2008, 5, 1)));
+		pessoaList.add(new Pessoa("Anne",	 LocalDate.of(1981, 6, 20)));
+		daop.saveAll(pessoaList);
+		
 	}
 	// @Bean => indica que o metodo loader gera um Bean gerenciado pelo Spring container.
 	// CommandLineRunner => indica que deve ser executado pelo SpringApplication.
 	@Bean
-	public CommandLineRunner loader(FilmeRepository daof/*, PessoaRepository daop*/) {
+	public CommandLineRunner loader(FilmeRepository daof, PessoaRepository daop) {
 		return (args) -> {
-			DataLoaderHelper.loadData(daof/*, daop*/);
+			DataLoaderHelper.loadData(daof, daop);
 		};
 	}
 

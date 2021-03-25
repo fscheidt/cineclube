@@ -20,7 +20,6 @@ import br.com.cineclube.model.Filme;
 @Controller
 @RequestMapping("/filmes") // http://localhost:8080/filmes
 public class FilmeController {
-	// associa a controller a um endpoint
 	
 	@Autowired // delega ao spring a criacao do repository
 	FilmeRepository dao;
@@ -50,6 +49,7 @@ public class FilmeController {
 		List<Filme> filmeList = dao.findAll();
 		model.addAttribute("categories", Category.values());
 		model.addAttribute("filmeList", filmeList);
+		model.addAttribute("category", "Selecionar");
 		return "filme/list.html";
 	}
 	@PostMapping("/save") // usar @Valid para validar o objeto filme
@@ -60,10 +60,18 @@ public class FilmeController {
 		}
 		// se tudo ok, entao salva no db:
 		dao.save(filme);
-		return "redirect:/filmes/list"; // chama action /filmes/list
+		return "redirect:/filmes/list"; // redireciona para /filmes/list
 	}
 	@PostMapping(value = "/category")
-	public String edit(String cat, Model model) {
+	public String filtra(String cat, Model model) {
+		List<Filme> filmes = dao.findByCategoria(cat);
+		model.addAttribute("filmeList",filmes);
+		model.addAttribute("category",cat);
+		model.addAttribute("categories", Category.values());
+		return "filme/list.html";
+	}
+	@PostMapping(value = "/aaa")
+	public String edit22(String cat, Model model) {
 		List<Filme> filmes = dao.findByCategoria(cat);
 		model.addAttribute("filmeList",filmes);
 		model.addAttribute("category",cat);
