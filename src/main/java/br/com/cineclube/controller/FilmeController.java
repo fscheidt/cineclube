@@ -40,13 +40,30 @@ public class FilmeController {
 	@GetMapping(value = "/edit/{id}") // http://localhost:8080/filmes/edit/10
 	public String edit(@PathVariable Long id, Model model) {
 		Filme filme = dao.getOne(id);
+		
 		model.addAttribute("filme", filme);
 		model.addAttribute("categories", Category.values());
 		return "filme/new.html";
 	}
 	@RequestMapping("/list")
 	public String list(Model model) {
+		
 		List<Filme> filmeList = dao.findAll();
+		
+//		List<Filme> filmeList = dao.findByCategoria("DRAMA");
+		
+//		List<Filme> filmeList = dao.findByNomeAndCategoria("Avatar", "ACTION");
+		
+//		List<Filme> filmeList = dao.findByOrderByCategoriaDesc();
+		
+//		List<Filme> filmeList = dao.findByNotaGreaterThanEqual(7f);
+		
+//		List<Filme> filmeList = dao.findTop3ByNotaGreaterThanEqualOrderByNotaDesc(7f);
+				
+		// Entre valores (nota 7 e nota 9)
+//		List<Filme> filmeList = dao.findByNotaBetween(7f, 9f);
+		
+		
 		model.addAttribute("categories", Category.values());
 		model.addAttribute("filmeList", filmeList);
 		model.addAttribute("category", "Selecionar");

@@ -30,6 +30,9 @@ public class Filme {
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private LocalDate lancamento;
 	
+	// relacionamento N-N entre pessoa e filme
+	// @ManyToMany
+	
 	@NotBlank
 	private String categoria; // drama, action, ...
 	

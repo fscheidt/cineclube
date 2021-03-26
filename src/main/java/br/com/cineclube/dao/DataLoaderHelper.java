@@ -20,6 +20,7 @@ public class DataLoaderHelper {
 		
 		List<Filme> filmeList = new ArrayList<>();
 		filmeList.add(new Filme("Avatar", 	7f, 	LocalDate.of(2009, 1, 28), Category.ACTION.name()));
+		filmeList.add(new Filme("Avatar", 	8f, 	LocalDate.of(2009, 1, 28), Category.DRAMA.name()));
 		filmeList.add(new Filme("Matrix", 	9f, 	LocalDate.of(1999, 1, 1), Category.SCIFI.name()));
 		filmeList.add(new Filme("Terminator",8f, 	LocalDate.of(1984, 1, 1), Category.SCIFI.name()));
 		filmeList.add(new Filme("Rock", 	6f, 	LocalDate.of(1976, 1, 1), Category.ACTION.name()));
