@@ -25,14 +25,24 @@ public class DataLoaderHelper {
 		filmeList.add(new Filme("Rock", 	6f, 	LocalDate.of(1976, 1, 1), Category.ACTION.name()));
 		filmeList.add(new Filme("Titanic", 	4f, 	LocalDate.of(1997, 1, 1), Category.DRAMA.name()));
 		filmeList.add(new Filme("Alien", 	10f, 	LocalDate.of(1979, 1, 1), Category.SCIFI.name()));
+		filmeList.add(new Filme("Chernobyl", 		9.40f, 	LocalDate.of(2019, 1, 21), Category.SCIFI.name()));
+		filmeList.add(new Filme("Terminator",		8.11f, 	LocalDate.of(1984, 1, 21), Category.SCIFI.name()));
+		filmeList.add(new Filme("Breaking Bad", 	10f, 	LocalDate.of(2008, 1, 21), Category.CRIME.name()));
+		filmeList.add(new Filme("Game of Thrones", 	9.3f, 	LocalDate.of(2011, 1, 21), Category.ACTION.name()));
+		filmeList.add(new Filme("Star Wars: Episode I", 	6.5f, 	LocalDate.of(1999, 1, 21), Category.SCIFI.name()));
+		filmeList.add(new Filme("The Thirteenth Floor", 	7.10f, 	LocalDate.of(1999, 1, 21), Category.SCIFI.name()));
+		daof.saveAll(filmeList);
+		
 		daof.saveAll(filmeList);
 		
 		List<Pessoa> pessoaList = new ArrayList<>();
-		pessoaList.add(new Pessoa("Leonard", LocalDate.of(1944, 4, 8)));
-		pessoaList.add(new Pessoa("Jake", 	 LocalDate.of(1999, 11, 28)));
-		pessoaList.add(new Pessoa("Arnold",  LocalDate.of(1962, 11, 15)));
-		pessoaList.add(new Pessoa("Kate", 	 LocalDate.of(2008, 5, 1)));
-		pessoaList.add(new Pessoa("Anne",	 LocalDate.of(1981, 6, 20)));
+		pessoaList.add(new Pessoa("Leonard Skin", LocalDate.of(1944, 4, 8)));
+		pessoaList.add(new Pessoa("Jake Skin", 	 LocalDate.of(1999, 11, 28)));
+		pessoaList.add(new Pessoa("Arnold Shuartz",  LocalDate.of(1962, 11, 15)));
+		pessoaList.add(new Pessoa("Kate Blan", 	 LocalDate.of(2008, 5, 1)));
+		pessoaList.add(new Pessoa("Anne Silver",	 LocalDate.of(1981, 6, 20)));
+		pessoaList.add(new Pessoa("Athena Greek",	 LocalDate.of(2012, 8, 10)));
+		pessoaList.add(new Pessoa("Artemis Greek",	 LocalDate.of(1980, 1, 1)));
 		daop.saveAll(pessoaList);
 		
 	}

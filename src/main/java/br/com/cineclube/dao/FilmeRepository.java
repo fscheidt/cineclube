@@ -11,10 +11,6 @@ import br.com.cineclube.model.Filme;
 public interface FilmeRepository extends JpaRepository<Filme, Long>{
 	
 	List<Filme> findByCategoria(String categoria);
-//	List<Filme> findByAno();
 	
-//	List<Filme> searchAllFilmeByCategoria();
-	
-	// Select * from filmes where categoria = "ACTION";
 	
 }

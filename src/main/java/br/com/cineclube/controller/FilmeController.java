@@ -70,13 +70,5 @@ public class FilmeController {
 		model.addAttribute("categories", Category.values());
 		return "filme/list.html";
 	}
-	@PostMapping(value = "/aaa")
-	public String edit22(String cat, Model model) {
-		List<Filme> filmes = dao.findByCategoria(cat);
-		model.addAttribute("filmeList",filmes);
-		model.addAttribute("category",cat);
-		model.addAttribute("categories", Category.values());
-		return "filme/list.html";
-	}
 	
 }
