@@ -1,14 +1,21 @@
 package br.com.cineclube.model;
 
 import java.time.LocalDate;
+import java.util.Set;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 
@@ -21,6 +28,7 @@ public class Filme {
 
 	@NotBlank(message="Nome campo obrigatorio")
 	@Size(min=1, max=50, message="Minimo de {min} caracteres em maximo de {max}")
+	@Column(nullable = false) // define a regra na criação da tabela.
 	private String nome; // ""
 	
 	@NotNull
@@ -37,6 +45,16 @@ public class Filme {
 	private String categoria; // drama, action, ...
 	
 	private Float nota; // 0..10
+	
+	// a classe owner eh filme
+	@ManyToMany
+	@JoinTable(name="filme_pessoa",
+	joinColumns = {@JoinColumn(name="filme_id")}, // owner
+	inverseJoinColumns = {@JoinColumn(name="pessoa_id")}) // dependent
+	private Set<Pessoa> pessoas;
+	
+	// escolher Set ou List - 
+//	private List<Pessoa> pessoa;
 
 	public Filme() {}
 
@@ -86,6 +104,14 @@ public class Filme {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Set<Pessoa> getPessoas() {
+		return pessoas;
+	}
+
+	public void setPessoas(Set<Pessoa> pessoas) {
+		this.pessoas = pessoas;
 	}
 
 }

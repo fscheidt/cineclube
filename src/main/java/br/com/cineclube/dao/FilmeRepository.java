@@ -70,7 +70,12 @@ public interface FilmeRepository extends JpaRepository<Filme, Long>{
 	 * Usar a annotation @Query e passar a query como parametro 
 	 */
 	@Query("select f from Filme f where categoria = ?1")
-	List<Filme> selecionaFilmePorCategoria(String categoria);
+	List<Filme> selecionatFilmePorCategoria(String categoria);
+	
+	// Many-to-Many exemplo:
+	// seleciona todos os filmes de uma categoria que determinada pessoa participa
+	@Query("select f from Filme f join f.pessoas p where p.nome = ?1 and f.categoria = ?2")
+	List<Filme> buscaPorPessoaAndCategoria(String nome, String categoria);
 	
 	
 }

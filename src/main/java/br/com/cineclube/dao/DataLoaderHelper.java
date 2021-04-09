@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -20,8 +21,7 @@ public class DataLoaderHelper {
 	public static void loadData(FilmeRepository daof , PessoaRepository daop) {
 		
 		List<Filme> filmeList = new ArrayList<>();
-		filmeList.add(new Filme("Avatar", 	7f, 	LocalDate.of(2009, 1, 28), Category.ACTION.name()));
-		filmeList.add(new Filme("Avatar", 	8f, 	LocalDate.of(2009, 1, 28), Category.DRAMA.name()));
+		filmeList.add(new Filme("Avatar", 	7f, 	LocalDate.of(2009, 1, 28), Category.SCIFI.name()));
 		filmeList.add(new Filme("Matrix", 	9f, 	LocalDate.of(1999, 1, 1), Category.SCIFI.name()));
 		filmeList.add(new Filme("Terminator",8f, 	LocalDate.of(1984, 1, 1), Category.SCIFI.name()));
 		filmeList.add(new Filme("Rock", 	6f, 	LocalDate.of(1976, 1, 1), Category.ACTION.name()));
@@ -33,8 +33,6 @@ public class DataLoaderHelper {
 		filmeList.add(new Filme("Game of Thrones", 	9.3f, 	LocalDate.of(2011, 1, 21), Category.ACTION.name()));
 		filmeList.add(new Filme("Star Wars: Episode I", 	6.5f, 	LocalDate.of(1999, 1, 21), Category.SCIFI.name()));
 		filmeList.add(new Filme("The Thirteenth Floor", 	7.10f, 	LocalDate.of(1999, 1, 21), Category.SCIFI.name()));
-		daof.saveAll(filmeList);
-		
 		daof.saveAll(filmeList);
 		
 		List<Pessoa> pessoaList = new ArrayList<>();
@@ -50,7 +48,7 @@ public class DataLoaderHelper {
 		/**
 		 * ADICIONAR elenco de atores para os filmes:
 		 * */
-		/* 
+		
 		Set<Pessoa> elencoAvatar = new HashSet<>();
 		elencoAvatar.add(daop.findById(1L).get());
 		elencoAvatar.add(daop.findById(2L).get());		
@@ -72,7 +70,6 @@ public class DataLoaderHelper {
 		alien.setPessoas(elencoAlien);
 		daof.save(alien);
 		
-		*/
 		
 	}
 	// @Bean => indica que o metodo loader gera um Bean gerenciado pelo Spring container.

@@ -26,6 +26,14 @@
       
 		<input type="hidden" th:field="${filme.id}" th:if="${filme.id}">
 		
+		<h4>Elenco:</h4>       
+		<p th:each="ator: ${filme.pessoas}" style="margin-bottom: 5px;">
+		  <label>
+		  <input type="checkbox" name="pessoas" th:value="${ator.id}" checked="checked" 
+		  	th:text="${ator.nome}" style="margin-right: 10px;">
+		  </label>
+		</p>
+		
         <div class="mb-3">
           <label class="form-label" for="nome">Nome</label> 
           

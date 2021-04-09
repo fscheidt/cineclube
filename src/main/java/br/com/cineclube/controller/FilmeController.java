@@ -50,6 +50,9 @@ public class FilmeController {
 		
 		List<Filme> filmeList = dao.findAll();
 		
+		// exemplo de many-to-many - usando Named Query com join
+//		List<Filme> filmeList = dao.buscaPorPessoaAndCategoria("Jake Skin", Category.SCIFI.name());
+		
 //		List<Filme> filmeList = dao.findByCategoria("DRAMA");
 		
 //		List<Filme> filmeList = dao.findByNomeAndCategoria("Avatar", "ACTION");
@@ -62,6 +65,8 @@ public class FilmeController {
 				
 		// Entre valores (nota 7 e nota 9)
 //		List<Filme> filmeList = dao.findByNotaBetween(7f, 9f);
+		
+//		List<Filme> filmeList = dao.selecionatFilmePorCategoria("DRAMA");
 		
 		
 		model.addAttribute("categories", Category.values());
