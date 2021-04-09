@@ -2,6 +2,7 @@ package br.com.cineclube.dao;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
@@ -45,6 +46,33 @@ public class DataLoaderHelper {
 		pessoaList.add(new Pessoa("Athena Greek",	 LocalDate.of(2012, 8, 10)));
 		pessoaList.add(new Pessoa("Artemis Greek",	 LocalDate.of(1980, 1, 1)));
 		daop.saveAll(pessoaList);
+		
+		/**
+		 * ADICIONAR elenco de atores para os filmes:
+		 * */
+		/* 
+		Set<Pessoa> elencoAvatar = new HashSet<>();
+		elencoAvatar.add(daop.findById(1L).get());
+		elencoAvatar.add(daop.findById(2L).get());		
+		Filme avatar = daof.findById(1L).get();
+		avatar.setPessoas(elencoAvatar);		
+		daof.save(avatar);
+		
+		Filme matrix = daof.findById(2L).get();
+		Set<Pessoa> elencoMatrix = new HashSet<>();
+		elencoMatrix.add(daop.findById(1L).get());
+		elencoMatrix.add(daop.findById(3L).get());
+		elencoMatrix.add(daop.findById(2L).get()); // jake skin
+		matrix.setPessoas(elencoMatrix);
+		daof.save(matrix);
+		
+		Filme alien = daof.findById(5L).get();
+		Set<Pessoa> elencoAlien = new HashSet<>();
+		elencoAlien.add(daop.findById(2L).get()); // jake skin
+		alien.setPessoas(elencoAlien);
+		daof.save(alien);
+		
+		*/
 		
 	}
 	// @Bean => indica que o metodo loader gera um Bean gerenciado pelo Spring container.
