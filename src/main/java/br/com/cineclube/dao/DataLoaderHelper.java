@@ -5,16 +5,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
-
 import br.com.cineclube.model.Category;
 import br.com.cineclube.model.Filme;
 import br.com.cineclube.model.Pessoa;
 
-//Service => anotacao que identifica que a classe deve ser detectada durante a fase de scanning do classpath
 @Service
 public class DataLoaderHelper {
 	
@@ -60,25 +57,21 @@ public class DataLoaderHelper {
 		Set<Pessoa> elencoMatrix = new HashSet<>();
 		elencoMatrix.add(daop.findById(1L).get());
 		elencoMatrix.add(daop.findById(3L).get());
-		elencoMatrix.add(daop.findById(2L).get()); // jake skin
+		elencoMatrix.add(daop.findById(2L).get());
 		matrix.setPessoas(elencoMatrix);
 		daof.save(matrix);
 		
 		Filme alien = daof.findById(5L).get();
 		Set<Pessoa> elencoAlien = new HashSet<>();
-		elencoAlien.add(daop.findById(2L).get()); // jake skin
+		elencoAlien.add(daop.findById(2L).get());
 		alien.setPessoas(elencoAlien);
 		daof.save(alien);
 		
-		
 	}
-	// @Bean => indica que o metodo loader gera um Bean gerenciado pelo Spring container.
-	// CommandLineRunner => indica que deve ser executado pelo SpringApplication.
 	@Bean
 	public CommandLineRunner loader(FilmeRepository daof, PessoaRepository daop) {
 		return (args) -> {
 			DataLoaderHelper.loadData(daof, daop);
 		};
 	}
-
 }

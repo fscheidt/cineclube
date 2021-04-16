@@ -2,7 +2,6 @@ package br.com.cineclube.model;
 
 import java.time.LocalDate;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +14,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 
@@ -28,34 +26,25 @@ public class Filme {
 
 	@NotBlank(message="Nome campo obrigatorio")
 	@Size(min=1, max=50, message="Minimo de {min} caracteres em maximo de {max}")
-	@Column(nullable = false) // define a regra na criação da tabela.
-	private String nome; // ""
+	@Column(nullable = false)
+	private String nome;
 	
 	@NotNull
-	@Past // ==> data de nascimento da Pessoa deve ser validada com Past (valida datas anteriores ao data agora)
-	// no caso de lancamento do filme essa regra nem sempre eh interessante pois um filme pode
-	// estar programado para lancamento no futuro (mas serve aqui como exemplo de como validar)
+	@Past
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private LocalDate lancamento;
 	
-	// relacionamento N-N entre pessoa e filme
-	// @ManyToMany
-	
 	@NotBlank
-	private String categoria; // drama, action, ...
+	private String categoria;
 	
-	private Float nota; // 0..10
+	private Float nota;
 	
-	// a classe owner eh filme
 	@ManyToMany
 	@JoinTable(name="filme_pessoa",
-	joinColumns = {@JoinColumn(name="filme_id")}, // owner
-	inverseJoinColumns = {@JoinColumn(name="pessoa_id")}) // dependent
+	joinColumns = {@JoinColumn(name="filme_id")},
+	inverseJoinColumns = {@JoinColumn(name="pessoa_id")})
 	private Set<Pessoa> pessoas;
 	
-	// escolher Set ou List - 
-//	private List<Pessoa> pessoa;
-
 	public Filme() {}
 
 	public Filme(String nome, Float nota, LocalDate lancamento, String categoria) {
@@ -88,7 +77,6 @@ public class Filme {
 	public void setNota(Float nota) {
 		this.nota = nota;
 	}
-
 
 	public LocalDate getLancamento() {
 		return lancamento;

@@ -7,9 +7,7 @@
   <!-- 
     BARRA DE NAVEGACAO 
   -->
-  
   <div th:replace="menu :: menu"></div>
-  
   <!-- 
     CONTEUDO DA PAGINA 
   -->
@@ -23,10 +21,7 @@
       </div>
 
       <form th:object="${pessoa}" action="/pessoas/save" method="POST">
-      
-      
 		<input type="hidden" th:field="${pessoa.id}" th:if="${pessoa.id}">
-		
 		<p th:each="filme: ${pessoa.filmes}" style="margin-bottom: 5px;">
 		  <label>
 		  <input type="checkbox" name="filmes" th:value="${filme.id}" 
@@ -36,14 +31,11 @@
 		
         <div class="mb-3">
           <label class="form-label" for="nome">Nome</label> 
-          
          <input type="text" th:field="*{nome}" class="form-control" placeholder="Nome" th:errorclass="inputError" autocomplete="off">
          <span class="error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">campo invalido</span>
-          
-
         </div>
+        
         <div class="row">
-          
           <div class="col">
           <label class="form-label" for="nome">Nascimento</label> 
 		  <input type="text" th:field="${pessoa.dataNasc}" class="form-control" 
@@ -51,7 +43,6 @@
 		  <span class="error" th:if="${#fields.hasErrors('dataNasc')}" 
 		  th:errors="*{dataNasc}">campo invalido</span>
           </div>
-           
         </div>
         <div class="mb-3">
           <p th:switch="${pessoa.id>0}">

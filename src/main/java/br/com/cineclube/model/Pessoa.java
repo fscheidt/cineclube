@@ -3,7 +3,6 @@ package br.com.cineclube.model;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +22,7 @@ public class Pessoa {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id; // 1L
+	private Long id;
 	
 	@NotBlank
 	@Size(min=3, max=50, message="Nome deve conter ao menos {min} caracteres")
