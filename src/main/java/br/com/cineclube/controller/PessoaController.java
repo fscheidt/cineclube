@@ -32,7 +32,8 @@ public class PessoaController {
 	}
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable Long id) {
-		dao.deleteById(id);
+//		dao.deleteById(id); // <<--- atualizar aqui, para deletar chave fk
+		dao.removerPessoa(id);
 		return "redirect:/pessoas/list";
 	}
 	@GetMapping("/edit/{id}")

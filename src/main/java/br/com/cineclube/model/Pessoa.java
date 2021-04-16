@@ -17,6 +17,9 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 public class Pessoa {
 	
@@ -27,6 +30,7 @@ public class Pessoa {
 	@NotBlank
 	@Size(min=3, max=50, message="Nome deve conter ao menos {min} caracteres")
 	@Column(nullable = false)
+	@JsonProperty("text") // usado no momento em que faz a serializacao para integrar com o select2
 	private String nome;
 	
 	@Past
@@ -34,6 +38,7 @@ public class Pessoa {
 	@NotNull
 	private LocalDate dataNasc;
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy="pessoas")
 	private Set<Filme> filmes;
 	
@@ -86,6 +91,37 @@ public class Pessoa {
 
 	public void setFilmes(Set<Filme> filmes) {
 		this.filmes = filmes;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dataNasc == null) ? 0 : dataNasc.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pessoa other = (Pessoa) obj;
+		if (dataNasc == null) {
+			if (other.dataNasc != null)
+				return false;
+		} else if (!dataNasc.equals(other.dataNasc))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		return true;
 	}
 	
 }

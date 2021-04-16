@@ -48,9 +48,9 @@ public class DataLoaderHelper {
 		
 		Set<Pessoa> elencoAvatar = new HashSet<>();
 		elencoAvatar.add(daop.findById(1L).get());
-		elencoAvatar.add(daop.findById(2L).get());		
+		elencoAvatar.add(daop.findById(2L).get());
 		Filme avatar = daof.findById(1L).get();
-		avatar.setPessoas(elencoAvatar);		
+		avatar.setPessoas(elencoAvatar);
 		daof.save(avatar);
 		
 		Filme matrix = daof.findById(2L).get();
