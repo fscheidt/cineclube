@@ -40,7 +40,7 @@ public class PessoaController {
 	public String newForm(Model model) {
 		Pessoa p = new Pessoa();
 		model.addAttribute("pessoa", p);
-		return "pessoa/new.html";
+		return "pessoa/manterPessoa.html";
 	}
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable Long id) {
@@ -51,12 +51,12 @@ public class PessoaController {
 	public String edit(@PathVariable Long id, Model model) {
 		Pessoa p = dao.findById(id).get();
 		model.addAttribute("pessoa", p);
-		return "pessoa/new.html";
+		return "pessoa/manterPessoa.html";
 	}
 	@PostMapping("/save")
 	public String save(@Valid Pessoa pessoa, BindingResult result, Model model) {
 		if(result.hasErrors())
-			return "pessoa/new.html";
+			return "pessoa/manterPessoa.html";
 		dao.save(pessoa);
 		return "redirect:/pessoas/list";
 	}

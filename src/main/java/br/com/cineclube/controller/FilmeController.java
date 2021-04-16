@@ -30,7 +30,7 @@ public class FilmeController {
 		Filme filme = new Filme();
 		model.addAttribute("categories", Category.values());
 		model.addAttribute("filme", filme);
-		return "filme/new.html";
+		return "filme/manterFilme.html";
 	}
 	@GetMapping(value = "/delete/{id}") // http://localhost:8080/filmes/delete/10
 	public String delete(@PathVariable Long id) {
@@ -43,7 +43,7 @@ public class FilmeController {
 		
 		model.addAttribute("filme", filme);
 		model.addAttribute("categories", Category.values());
-		return "filme/new.html";
+		return "filme/manterFilme.html";
 	}
 	@RequestMapping("/list")
 	public String list(Model model) {
@@ -78,7 +78,7 @@ public class FilmeController {
 	public String save(@Valid Filme filme, BindingResult result, Model model) {
 		if(result.hasErrors()) { // se possui algum erro retorna ao formulario
 			model.addAttribute("categories", Category.values());
-			return "filme/new.html";
+			return "filme/manterFilme.html";
 		}
 		// se tudo ok, entao salva no db:
 		dao.save(filme);
