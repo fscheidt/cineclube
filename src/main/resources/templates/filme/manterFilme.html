@@ -82,6 +82,10 @@
 		  dataType: 'json',
 		  delay: 250,
 		  processResults: function (response) {
+              $.map(response, function (obj) {
+                obj.text = obj.text || obj.nome; // replace nome
+                return obj;
+              });
 			  return {
 				  results: response
 			  };

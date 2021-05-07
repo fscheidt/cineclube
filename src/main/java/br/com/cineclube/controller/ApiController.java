@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.cineclube.dao.FilmeRepository;
 import br.com.cineclube.dao.PessoaRepository;
+import br.com.cineclube.model.Filme;
 import br.com.cineclube.model.Pessoa;
 
 @RestController
@@ -27,6 +29,9 @@ public class ApiController {
 	@Autowired
 	PessoaRepository dao;
 	
+	@Autowired
+	FilmeRepository daof;
+	
 //	http://localhost:8080/api/elenco?q=ja
 	@GetMapping("/elenco")
 	public List<Pessoa> pessoasElenco(@RequestParam(value = "q", required = false) String query) {
@@ -35,6 +40,17 @@ public class ApiController {
 		}
 		return dao.findByNomeIgnoreCaseContaining(query);
 	}
+	/* 
+	 * API FILME 
+	 * 
+	 * */
+	// Get ALL
+	// `http :8080/api/filmes`
+	@GetMapping(value = "/filmes") 
+	Iterable<Filme> getFilmes() { 
+		return daof.findAll();
+	}
+	
 	/* 
 	 * API PESSOA 
 	 * 
@@ -54,6 +70,7 @@ public class ApiController {
 		return dao.findAll();
 	}
 	// CREATE
+	// http :8080/api/pessoa < pessoa_frank.json
 	@PostMapping("/pessoa")
 	Pessoa postPessoa(@RequestBody Pessoa pessoa) {
 		dao.save(pessoa);

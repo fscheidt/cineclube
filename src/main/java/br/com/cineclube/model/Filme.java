@@ -2,6 +2,7 @@ package br.com.cineclube.model;
 
 import java.time.LocalDate;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +15,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 
 @Entity
@@ -40,6 +44,7 @@ public class Filme {
 	private Float nota;
 	
 	@ManyToMany
+	@JsonSerialize(using = PessoaListSerializer.class)
 	@JoinTable(name="filme_pessoa",
 	joinColumns = {@JoinColumn(name="filme_id")},
 	inverseJoinColumns = {@JoinColumn(name="pessoa_id")})

@@ -30,7 +30,7 @@ public class Pessoa {
 	@NotBlank
 	@Size(min=3, max=50, message="Nome deve conter ao menos {min} caracteres")
 	@Column(nullable = false)
-	@JsonProperty("text") // usado no momento em que faz a serializacao para integrar com o select2
+//	@JsonProperty("text") // usado no momento em que faz a serializacao para integrar com o select2
 	private String nome;
 	
 	@Past
