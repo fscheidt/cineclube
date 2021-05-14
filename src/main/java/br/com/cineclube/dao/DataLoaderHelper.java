@@ -40,6 +40,10 @@ public class DataLoaderHelper {
 		pessoaList.add(new Pessoa("Anne Silver",	 LocalDate.of(1981, 6, 20)));
 		pessoaList.add(new Pessoa("Athena Greek",	 LocalDate.of(2012, 8, 10)));
 		pessoaList.add(new Pessoa("Artemis Greek",	 LocalDate.of(1980, 1, 1)));
+		
+		pessoaList.add(new Pessoa("Sam Worthington", LocalDate.of(1976, 8, 2)));
+		pessoaList.add(new Pessoa("Laurence Fishburne", LocalDate.of(1961, 7, 30)));
+		
 		daop.saveAll(pessoaList);
 		
 		/**
@@ -49,6 +53,7 @@ public class DataLoaderHelper {
 		Set<Pessoa> elencoAvatar = new HashSet<>();
 		elencoAvatar.add(daop.findById(1L).get());
 		elencoAvatar.add(daop.findById(2L).get());
+		elencoAvatar.add(daop.findById(8L).get());
 		Filme avatar = daof.findById(1L).get();
 		avatar.setPessoas(elencoAvatar);
 		daof.save(avatar);
@@ -58,6 +63,7 @@ public class DataLoaderHelper {
 		elencoMatrix.add(daop.findById(1L).get());
 		elencoMatrix.add(daop.findById(3L).get());
 		elencoMatrix.add(daop.findById(2L).get());
+		elencoMatrix.add(daop.findById(9L).get());
 		matrix.setPessoas(elencoMatrix);
 		daof.save(matrix);
 		
