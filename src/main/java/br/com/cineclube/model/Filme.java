@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -27,6 +28,9 @@ public class Filme {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	@Transient
+	private FilmeDB moviedb; // mapea o json que vem da moviedb api
 
 	@NotBlank(message="Nome campo obrigatorio")
 	@Size(min=1, max=50, message="Minimo de {min} caracteres em maximo de {max}")
@@ -105,6 +109,14 @@ public class Filme {
 
 	public void setPessoas(Set<Pessoa> pessoas) {
 		this.pessoas = pessoas;
+	}
+
+	public FilmeDB getMoviedb() {
+		return moviedb;
+	}
+
+	public void setMoviedb(FilmeDB moviedb) {
+		this.moviedb = moviedb;
 	}
 
 }

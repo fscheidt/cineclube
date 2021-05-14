@@ -48,8 +48,15 @@
          <span class="error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">campo invalido</span>
 
         </div>
+        
         <div class="row">
-          
+	         <div class="col">
+            <label class="form-label" for="tipo">Overview</label> 
+            <span class="moviedb" th:text="${filme.moviedb.overview}"></span>                        
+          </div>
+        </div>
+        
+        <div class="row">
           <div class="col">
           <label class="form-label" for="nome">Data lançamento</label> 
 		  <input type="text" th:field="${filme.lancamento}" class="form-control" placeholder="dd/MM/yyyy" autocomplete="off">
