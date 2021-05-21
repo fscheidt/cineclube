@@ -11,16 +11,20 @@ import org.springframework.web.client.RestTemplate;
 
 import br.com.cineclube.model.FilmeDB;
 import br.com.cineclube.model.WrapperMovieSearch;
+import br.com.cineclube.service.MoviedbService;
 
-@RestController
+@RestController // RestController ou Controller estamos expondo via url
 @RequestMapping("/api/v1")
 public class MoviedbConsumer {
 	
-	@Value("${api.moviedb.key}")
-    private String apiKey;
-
-    @Autowired
-    private RestTemplate apiRequest;
+//	@Value("${api.moviedb.key}")
+//    private String apiKey;
+//
+//    @Autowired
+//    private RestTemplate apiRequest;
+    
+    @Autowired // injecao de dependencia 
+	MoviedbService apiService;
     
     /**
      * TESTE pela nossa API:
@@ -30,14 +34,9 @@ public class MoviedbConsumer {
      * http https://api.themoviedb.org/3/movie/550?api_key=d1da20fbfa65312b857fb7b517bf855c 
      */
     @RequestMapping("/filmedb/{id}")
-    public FilmeDB getFilmeById(@PathVariable Long id) {
+    public FilmeDB getMovieById(@PathVariable Long id) {
     	
-    	String filmeUrl = 
-        		"https://api.themoviedb.org/3/movie/" + id + "?api_key=" +  apiKey;
-    	
-        FilmeDB filme = apiRequest.getForObject(filmeUrl, FilmeDB.class);
-        
-        return filme; // serializado em JSON
+        return apiService.getMovieById(id);
     }
     
     /**
@@ -52,13 +51,9 @@ public class MoviedbConsumer {
     @GetMapping("/search")
     public WrapperMovieSearch searchMovie(@RequestParam String title, @RequestParam Integer year){
     	
-    	String filmeUrl = 
-        		"https://api.themoviedb.org/3/search/movie?api_key=" +  apiKey + "&query=" + title + "&year=" + year;
+    	// chama a MovieService:    	
+    	return apiService.searchMovie(title, year);
     	
-    	// aonde ocorre a des-serializacao (converter o retorno em json para objeto java)
-    	WrapperMovieSearch searchResult = apiRequest.getForObject(filmeUrl, WrapperMovieSearch.class);
-    	
-    	return searchResult;
     }
     
     /*
@@ -67,14 +62,9 @@ public class MoviedbConsumer {
     @GetMapping("/search1")
     public FilmeDB searchOneMovie(@RequestParam String title, @RequestParam Integer year){
     	
-    	String filmeUrl = 
-        		"https://api.themoviedb.org/3/search/movie?api_key=" +  apiKey + "&query=" + title + "&year=" + year;
-    	
-    	
-    	WrapperMovieSearch searchResult = apiRequest.getForObject(filmeUrl, WrapperMovieSearch.class);
-    	FilmeDB filme = searchResult.getResults().get(0);
-    	
-    	return filme;
+    	// chama a MovieService:
+    	return apiService.searchOneMovie(title, year);
+
     }
     
     

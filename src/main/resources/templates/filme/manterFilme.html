@@ -50,10 +50,14 @@
         </div>
         
         <div class="row">
-	         <div class="col">
+	      <div class="col">
             <label class="form-label" for="tipo">Overview</label> 
-            <span class="moviedb" th:text="${filme.moviedb.overview}"></span>                        
+            <span class="moviedb" th:text="${filme.moviedb.overview}?:'not found' "></span>                        
           </div>
+          <div class="col">
+          	<img width="100" th:src="${filme.moviedb.poster_path}">
+          </div>
+          <span th:text="${filme.moviedb.vote_count}">
         </div>
         
         <div class="row">
