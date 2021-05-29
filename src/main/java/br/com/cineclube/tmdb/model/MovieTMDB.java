@@ -1,12 +1,13 @@
-package br.com.cineclube.model;
+package br.com.cineclube.tmdb.model;
 
 // classe que espelha o retorno da requisicao a api themoviedb
-public class FilmeDB {
+public class MovieTMDB {
 
 	private Long id;
 	private String title;
 	private String overview;
 	private Integer vote_count;
+	private Float vote_average;
 	
 	// /6EiRUJpuoeQPghrs3YNktfnqOVh.jpg
 	// https://image.tmdb.org/t/p/w500/<POSTER_PATH>
@@ -47,6 +48,12 @@ public class FilmeDB {
 	}
 	public void setOverview(String overview) {
 		this.overview = overview;
+	}
+	public Float getVote_average() {
+		return vote_average;
+	}
+	public void setVote_average(Float vote_average) {
+		this.vote_average = vote_average;
 	}
 	
 	

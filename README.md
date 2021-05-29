@@ -42,10 +42,10 @@ Cineclube project roadmap and main features implemented:
     - [X] Create a `@Controller` (PessoaController) to manage http requests
     - [X] Create PersonRepository (aka `PessoaRepository`)
     - [X] Define N-N Relationship with `Movie`
-- [ ] **Category CRUD**
-    - [ ] Refactor category: from enum to `@Entity`
-    - [ ] Create `CategoryRepository`
-    - [ ] Create a `@Controller` (CategoryController) to manage http requests
+- [X] **Category CRUD**
+    - [X] Refactor category: from enum to `@Entity`
+    - [X] Create `CategoryRepository`
+    - [X] Create a `@Controller` (CategoryController) to manage http requests
     - [ ] Define N-N Relationship with `Movie`
 - [X] **Create cineclube API**
     - [X] Create **movie** endpoints using `@RestController`

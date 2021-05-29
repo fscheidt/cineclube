@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.cineclube.dao.CategoriaRepository;
 import br.com.cineclube.dao.FilmeRepository;
 import br.com.cineclube.dao.PessoaRepository;
+import br.com.cineclube.model.Categoria;
 import br.com.cineclube.model.Filme;
 import br.com.cineclube.model.Pessoa;
 
@@ -32,6 +34,17 @@ public class ApiController {
 	@Autowired
 	FilmeRepository daof;
 	
+	@Autowired
+	CategoriaRepository daoCat;
+	
+	@GetMapping("categorias")
+    public List<Categoria> getCategorias(@RequestParam(value = "q", required = false) String query) {
+        if (!StringUtils.hasLength(query)) {
+            return daoCat.findAll();
+        }
+        return daoCat.findByNomeIgnoreCaseContaining(query);
+    }
+			
 //	http://localhost:8080/api/elenco?q=ja
 	@GetMapping("/elenco")
 	public List<Pessoa> pessoasElenco(@RequestParam(value = "q", required = false) String query) {

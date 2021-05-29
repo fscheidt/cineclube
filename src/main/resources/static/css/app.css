@@ -20,6 +20,12 @@ span.error{
 .inputError{
 	border: 1px solid red;
 }
+span.categoria{
+	border: 1px solid #c1c1c1;
+    margin: 0px 5px 0px 0px;
+    padding: 3px;
+    border-radius: 2px;	
+}
 span.moviedb {
     font-family: 'charter';
     border: 1px solid #aaaaaa;
@@ -29,3 +35,6 @@ span.moviedb {
     background: #e4fff0;
     
 }
+div.row {
+	margin-bottom: 20px;
+} 

@@ -3,6 +3,7 @@ package br.com.cineclube.model;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +19,8 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
+import br.com.cineclube.tmdb.model.PersonTMDB;
 
 @Entity
 public class Pessoa {
@@ -30,13 +32,15 @@ public class Pessoa {
 	@NotBlank
 	@Size(min=3, max=50, message="Nome deve conter ao menos {min} caracteres")
 	@Column(nullable = false)
-//	@JsonProperty("text") // usado no momento em que faz a serializacao para integrar com o select2
 	private String nome;
 	
 	@Past
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	@NotNull
 	private LocalDate dataNasc;
+	
+	@Transient
+	private PersonTMDB persondb;
 	
 	@JsonIgnore
 	@ManyToMany(mappedBy="pessoas")
@@ -122,6 +126,14 @@ public class Pessoa {
 		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
+	}
+
+	public PersonTMDB getPersondb() {
+		return persondb;
+	}
+
+	public void setPersondb(PersonTMDB persondb) {
+		this.persondb = persondb;
 	}
 	
 }

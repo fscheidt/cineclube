@@ -41,41 +41,62 @@
 		  </option>
 		</select>
 		
-        <div class="mb-3">
-          <label class="form-label" for="nome">Nome</label> 
-          
-         <input type="text" th:field="*{nome}" class="form-control" placeholder="Nome do filme" th:errorclass="inputError" autocomplete="off">
-         <span class="error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">campo invalido</span>
-
-        </div>
         
         <div class="row">
-	      <div class="col">
-            <label class="form-label" for="tipo">Overview</label> 
-            <span class="moviedb" th:text="${filme.moviedb.overview}?:'not found' "></span>                        
+	      <div class="col-8">
+            <label class="form-label" for="nome">Nome</label> 
+         	<input type="text" th:field="*{nome}" class="form-control" placeholder="Nome do filme" th:errorclass="inputError" autocomplete="off">
+         	<span class="error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">campo invalido</span>                
           </div>
           <div class="col">
-          	<img width="100" th:src="${filme.moviedb.poster_path}">
-          </div>
-          <span th:text="${filme.moviedb.vote_count}">
+            <label class="form-label" for="nota">Nota</label> 
+            <input type="text" th:field="${filme.nota}" class="form-control" placeholder="7.5" 
+            autocomplete="off">
+            <span class="error" th:if="${#fields.hasErrors('nota')}" th:errors="*{nota}">campo invalido</span>
+          </div>          
+          
+         
         </div>
         
         <div class="row">
+        	<div class="col-8">
+            <label class="form-label" for="categoria">Categorias</label> 
+            <select id="categorias" name="categorias" th:field="*{categorias}" multiple="multiple" class="form-control select2-single">
+              <option th:each="cat : ${filme.categorias}"
+                      th:value="${cat.id}"
+                      th:text="${cat.nome}">				
+              </option>
+            </select>
+            <span class="error" th:if="${#fields.hasErrors('categorias')}" th:errors="*{categorias}">campo invalido</span>
+          </div>
+          
           <div class="col">
           <label class="form-label" for="nome">Data lançamento</label> 
 		  <input type="text" th:field="${filme.lancamento}" class="form-control" placeholder="dd/MM/yyyy" autocomplete="off">
 		  <span class="error" th:if="${#fields.hasErrors('lancamento')}" 
 		  th:errors="*{lancamento}">campo invalido</span>
           </div>
-          
-           <div class="col">
-            <label class="form-label" for="categoria">Categoria</label> 
-            <select th:field="${filme.categoria}" class="form-select" id="categoria">
-              <option value="">Select category</option>
-              <option th:each="cat: ${categories}" th:text="${cat.name()}" th:value="${cat.name()}" ></option>
-            </select>
-          </div>
         </div>
+        
+        
+        
+        <div class="row">
+        <div class="col-2">
+          	<img width="100" th:src="${filme.moviedb?.poster_path}">
+          </div>
+	      <div class="col-8">
+            <label class="form-label" for="tipo">História</label> 
+            <span class="moviedb" th:text="${filme.moviedb?.overview}?:'not found' "></span>                        
+          </div>
+           <div class="col">
+          	<label class="form-label" for="nome">Votes (TMDB)</label> 
+          	<span class="moviedb" th:text="${filme.moviedb?.vote_average}?:'unknow' "></span>
+          </div>
+          
+        </div>
+        
+        
+        
         <div class="mb-3">
           <p th:switch="${filme.id>0}">
             <button type="submit" th:case="${true}" class="btn btn-danger" th:text="Atualizar"></button>
@@ -104,6 +125,23 @@
 		  cache: false
 		  }
 	});
+	$("#categorias").select2({
+          ajax: {
+              url: '/api/categorias',
+              dataType: 'json',
+              delay: 250,
+              processResults: function (response) {
+                  $.map(response, function (obj) {
+                    obj.text = obj.text || obj.nome; // replace name with the property used for the text
+                    return obj;
+                  });
+                  return {
+                      results: response
+                  };
+              },
+              cache: false
+          }
+      });
   </script>
 </body>
 </html>

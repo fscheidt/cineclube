@@ -24,19 +24,19 @@
     <h3>Gerenciar filmes + séries</h3>
     
     <div class="row">
-        <form th:action="@{/filmes/category}" method="POST">
-	        <div class="mb-2">
-	          <label class="form-label" for="categoria">Filtrar por categoria: <span th:text="${category}"></span></label>
-	        </div>
-	        <div class="mb-2"> 
-	          <select class="form-select" th:name="cat" required="required" onchange="this.form.submit()">
-	            <option th:text="${category}" th:value="${category}"></option>
-	            <option th:each="cat: ${categories}" th:text="${cat.name()}" th:value="${cat.name()}" ></option>
-	          </select>
-	        </div>
-	        <div class="mb-4">
-	          <button class="btn btn-success" type="submit">find</button>
-	        </div>
+        <form th:action="@{/filmes/filtra}" method="POST">
+        <div class="mb-2">
+          <label class="form-label" for="categoria">Filtrar por categoria:</label>
+        </div>
+        <div class="mb-2"> 
+          <select th:object="${cat}" class="form-select" name="cat" required="required">
+            <option value="">Select category</option>
+            <option th:each="cat: ${categorias}" th:text="${cat.nome}" th:value="${cat.id}" ></option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <button class="btn btn-success" type="submit">find</button>
+        </div>
         </form>
       </div>
       
@@ -63,8 +63,9 @@
           </td>
           <td th:text="${{filme.lancamento}}"/>
           <td th:text="${{filme.nota}}"/>
-          <td th:text="${filme.categoria}"/>
-          <!-- http://localhost:8080/filmes/delete/id/10 -->
+          <td>
+            <span th:each="cat: ${filme.categorias}" th:text="${cat.nome}" class="categoria"></span>
+          </td>
           <td><a th:href="@{/filmes/delete/{id}(id=${filme.id})}">
             <i class="bi bi-dash-circle" title="delete"></i>
           </a></td>

@@ -1,12 +1,12 @@
-package br.com.cineclube.service;
+package br.com.cineclube.tmdb.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import br.com.cineclube.model.FilmeDB;
-import br.com.cineclube.model.WrapperMovieSearch;
+import br.com.cineclube.tmdb.model.MovieTMDB;
+import br.com.cineclube.tmdb.model.WrapperMovieSearch;
 
 @Service // acessada via autowired (uso interno das nossas classes)
 public class MoviedbService {
@@ -32,17 +32,17 @@ public class MoviedbService {
     	
     	return searchResult;
     }		
-    public FilmeDB getMovieById(Long id) {
+    public MovieTMDB getMovieById(Long id) {
     	
     	String filmeUrl = 
         		"https://api.themoviedb.org/3/movie/" + id + "?api_key=" +  apiKey;
     	
-        FilmeDB filme = apiRequest.getForObject(filmeUrl, FilmeDB.class);
+        MovieTMDB filme = apiRequest.getForObject(filmeUrl, MovieTMDB.class);
         
         return filme; // serializado em JSON
         
     }
-    public FilmeDB searchOneMovie(String title, Integer year){
+    public MovieTMDB searchOneMovie(String title, Integer year){
     	
     	String filmeUrl = 
         		"https://api.themoviedb.org/3/search/movie?api_key=" +  apiKey + "&query=" + title + "&year=" + year;
@@ -50,7 +50,7 @@ public class MoviedbService {
     	
     	WrapperMovieSearch searchResult = apiRequest.getForObject(filmeUrl, WrapperMovieSearch.class);
     	
-    	FilmeDB filme = new FilmeDB();
+    	MovieTMDB filme = new MovieTMDB();
     	
     	// testando se existe ao menos um filme na lista de resultados (vem da moviedb api)
     	if (searchResult.getResults()!=null && searchResult.getResults().size() > 0) {

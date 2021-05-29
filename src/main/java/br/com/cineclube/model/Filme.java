@@ -1,6 +1,8 @@
 package br.com.cineclube.model;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -13,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
@@ -20,6 +23,8 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import br.com.cineclube.tmdb.model.MovieTMDB;
 
 
 @Entity
@@ -30,7 +35,7 @@ public class Filme {
 	private Long id;
 	
 	@Transient
-	private FilmeDB moviedb; // mapea o json que vem da moviedb api
+	private MovieTMDB moviedb; // mapea o json que vem da moviedb api
 
 	@NotBlank(message="Nome campo obrigatorio")
 	@Size(min=1, max=50, message="Minimo de {min} caracteres em maximo de {max}")
@@ -42,8 +47,14 @@ public class Filme {
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private LocalDate lancamento;
 	
-	@NotBlank
-	private String categoria;
+	@JsonSerialize(using = CategoriaSerializer.class)
+    @NotEmpty(message="deve selecionar no min 1 categoria")
+    @Size(min=1, max=3, message="qtd de categorias deve ser entre {min} e {max}")
+    @ManyToMany
+	@JoinTable(name="filme_categoria",
+		joinColumns = {@JoinColumn(name="filme_id")}, // owner
+		inverseJoinColumns = {@JoinColumn(name="categoria_id")}) // dependent
+    private Set<Categoria> categorias;
 	
 	private Float nota;
 	
@@ -56,11 +67,23 @@ public class Filme {
 	
 	public Filme() {}
 
-	public Filme(String nome, Float nota, LocalDate lancamento, String categoria) {
+	public Filme(String nome, Float nota, LocalDate lancamento, Categoria categoria) {
 		this.nome = nome;
 		this.lancamento = lancamento;
 		this.nota = nota;
-		this.categoria = categoria;
+		if (categoria!=null) {
+			this.categorias = new HashSet<>();
+			this.categorias.add(categoria);
+		}
+	}
+	public Filme(String nome, Float nota, LocalDate lancamento, List<Categoria> categorias) {
+		this.nome = nome;
+		this.lancamento = lancamento;
+		this.nota = nota;
+		if (categorias!=null && categorias.size() > 0) {
+			this.categorias = new HashSet<>();
+			this.categorias.addAll(categorias);
+		}
 	}
 
 	public String getNome() {
@@ -71,12 +94,14 @@ public class Filme {
 		this.nome = nome;
 	}
 
-	public String getCategoria() {
-		return categoria;
+	
+
+	public Set<Categoria> getCategorias() {
+		return categorias;
 	}
 
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
+	public void setCategorias(Set<Categoria> categorias) {
+		this.categorias = categorias;
 	}
 
 	public Float getNota() {
@@ -111,11 +136,11 @@ public class Filme {
 		this.pessoas = pessoas;
 	}
 
-	public FilmeDB getMoviedb() {
+	public MovieTMDB getMoviedb() {
 		return moviedb;
 	}
 
-	public void setMoviedb(FilmeDB moviedb) {
+	public void setMoviedb(MovieTMDB moviedb) {
 		this.moviedb = moviedb;
 	}
 
