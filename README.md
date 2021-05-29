@@ -19,7 +19,7 @@ A [spring-boot](https://spring.io/projects/spring-boot) web application to manag
 
 Cineclube project roadmap and main features implemented:
 
-#### <u>Conventional MVC Web architecture</u>
+#### 🟨 Conventional MVC Web architecture
 - [X] **Setup spring-boot project**
     - [X] configure spring-boot starters in [pom.xml](https://github.com/fscheidt/cineclube/blob/master/pom.xml)
     - [X] configure [app.properties](https://github.com/fscheidt/cineclube/blob/master/src/main/resources/application.properties) for H2, Thymeleaf and JPA settings.
@@ -59,7 +59,7 @@ Cineclube project roadmap and main features implemented:
       - [X] Pessoa: `PessoaListSerializer` (to expose the list of **filmes**)
       - [ ] Filme: `MovieListSerializer` (to expose the list of **pessoas** and **categories**)
 
-#### <u>REST architecture</u>
+#### 🟩 REST architecture
 - [X] **The moviedb API integration (TMDB)**:
     - [X] Integrate Spring with [TMDB api](https://www.themoviedb.org/documentation/api) 👀
       - [X] Create an api-key + configure spring app.properties.
