@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,9 +24,12 @@ import br.com.cineclube.dao.PessoaRepository;
 import br.com.cineclube.model.Categoria;
 import br.com.cineclube.model.Filme;
 import br.com.cineclube.model.Pessoa;
+import br.com.cineclube.tmdb.model.MovieTMDB;
+import br.com.cineclube.tmdb.service.MoviedbService;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin() // desabilita CORS policy
 public class ApiController {
 	
 	@Autowired
@@ -33,6 +37,9 @@ public class ApiController {
 	
 	@Autowired
 	FilmeRepository daof;
+	
+	@Autowired
+	MoviedbService apiService;
 	
 	@Autowired
 	CategoriaRepository daoCat;
@@ -62,6 +69,20 @@ public class ApiController {
 	@GetMapping(value = "/filmes") 
 	Iterable<Filme> getFilmes() { 
 		return daof.findAll();
+	}
+	
+	@GetMapping("/filme/{id}")
+	Filme getFilme(@PathVariable Long id) {
+		
+		Filme filme = daof.findById(id).get();
+		
+		MovieTMDB moviedb = apiService.searchOneMovie(
+				filme.getNome(), 
+				filme.getLancamento().getYear()
+		);
+		filme.setMoviedb(moviedb);
+		
+		return filme;
 	}
 	
 	/* 
