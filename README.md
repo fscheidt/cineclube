@@ -11,9 +11,17 @@ A [spring-boot](https://spring.io/projects/spring-boot) web application to manag
 - JPA
 - Maven
 - Thymeleaf
-- TMDB api
+- [TMDB api](https://www.themoviedb.org/documentation/api)
 
 ---
+
+## Configurations
+
+### H2 - admin
+- URL: http://localhost:8080/h2admin/
+- JDBC URL: jdbc:h2:file:~/h2files/cinedb2
+- User name: admin
+- Password: 1234
 
 ## Roadmap 🗺️
 
@@ -46,7 +54,7 @@ Cineclube project roadmap and main features implemented:
     - [X] Refactor category: from enum to `@Entity`
     - [X] Create `CategoryRepository`
     - [X] Create a `@Controller` (CategoryController) to manage http requests
-    - [ ] Define N-N Relationship with `Movie`
+    - [X] Define N-N Relationship with `Movie`
 - [X] **Create cineclube API**
     - [X] Create **movie** endpoints using `@RestController`
       - [X] Associate the http verbs for each endpoint:
@@ -57,14 +65,14 @@ Cineclube project roadmap and main features implemented:
     - [X] Create **person** endpoints using `@RestController`
     - [X] Create a java class to customize the serialization process for:
       - [X] Pessoa: `PessoaListSerializer` (to expose the list of **filmes**)
-      - [ ] Filme: `MovieListSerializer` (to expose the list of **pessoas** and **categories**)
+      - [X] Filme: `MovieListSerializer` (to expose the list of **pessoas** and **categories**)
 
 #### 🟩 REST architecture
 - [X] **The moviedb API integration (TMDB)**:
     - [X] Integrate Spring with [TMDB api](https://www.themoviedb.org/documentation/api) 👀
       - [X] Create an api-key + configure spring app.properties.
       - [X] Use `RestTemplate` to make requests and consume the api services.
-      - [ ] Define a separeate package for TMDB classes: `br.com.cineclube.tmdb`
+      - [X] Define a separate package for TMDB classes: `br.com.cineclube.tmdb`
       - [X] Define a Service layer at `br.com.cineclube.tmdb.service` that groups all services that will use/call the TMDB api.
     - [ ] 🎬 **Movies** TMDB api services:
       - [X] Create a class `FilmeDB` to map the json return from TMDB. This is necessary to deserialize the object that represents a Movie.
@@ -85,9 +93,9 @@ Cineclube project roadmap and main features implemented:
     - [ ] **Other services**
       - [ ] Find the list of all genres (categories) in TMDB.
 - [ ] **API Authentication**
-- [ ] **Cors support**
-    - [ ] Enable cors in Spring
-    - [ ] Test-case: Vue client to consume Cineclube API - CineApp
+- [X] **Cors support**
+    - [X] Enable cors in Spring
+    - [X] Test-case: Vue client to consume Cineclube API - CineApp
 
 ---
 

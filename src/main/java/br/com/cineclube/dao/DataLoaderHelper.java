@@ -8,11 +8,13 @@ import java.util.Set;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.cineclube.model.Categoria;
 import br.com.cineclube.model.Filme;
 import br.com.cineclube.model.Pessoa;
+import br.com.cineclube.model.Usuario;
 
 @Service
 public class DataLoaderHelper {
@@ -20,7 +22,8 @@ public class DataLoaderHelper {
 	public static void loadData(
 			FilmeRepository daof, 
 			PessoaRepository daop, 
-			CategoriaRepository daoCat) {
+			CategoriaRepository daoCat,
+			UsuarioRepository daoUser) {
 		
 		List<Categoria> categoriaList = new ArrayList<>();
 		categoriaList.add(new Categoria("Action"));
@@ -99,11 +102,21 @@ public class DataLoaderHelper {
 		alien.setPessoas(elencoAlien);
 		daof.save(alien);
 		
+		/* Exemplo para salvar o usuario com senha criptografada */
+		BCryptPasswordEncoder passEncoder = new BCryptPasswordEncoder();
+		
+		Usuario maria = new Usuario();
+		maria.setEmail("maria90@test.org");		
+		maria.setPassword(passEncoder.encode("1q2w3e"));
+		maria.setNome("Maria Aparecida");
+		daoUser.save(maria);
+		
 	}
 	@Bean
-	public CommandLineRunner loader(FilmeRepository daof, PessoaRepository daop, CategoriaRepository daoCat) {
+	public CommandLineRunner loader(FilmeRepository daof, PessoaRepository daop, 
+			CategoriaRepository daoCat, UsuarioRepository daoUser) {
 		return (args) -> {
-			DataLoaderHelper.loadData(daof, daop, daoCat);
+			DataLoaderHelper.loadData(daof, daop, daoCat, daoUser);
 		};
 	}
 }
