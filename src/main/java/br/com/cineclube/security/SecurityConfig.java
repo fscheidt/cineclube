@@ -14,39 +14,40 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	// para autenticar um usuario precisamos de uma service
 	// que vai responder se as credenciais do usuario sao validas
 	@Autowired
 	private UsuarioService userServ;
-	
-	// precisamos tambem dizer como sera realizado a autenticacao sobrescrevendo o metodo configure
+
+	// precisamos tambem dizer como sera realizado a autenticacao sobrescrevendo o
+	// metodo configure
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// nesse ponto a UsuarioService é chamada para consultar o database
 		auth.userDetailsService(userServ);
 	}
-	
+
 	/* setamos o bcrypt como metodo de criptografia para codificar o password */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-	    return new BCryptPasswordEncoder();
+		return new BCryptPasswordEncoder();
 	}
-	
-	/* 
-	 * - para "desligar" o filtro de autenticacao do spring security descomentar o metodo configure abaixo.
-	 * este metodo libera o acesso para todos os recurso de acordo com o padrao passado na 
-	 * url antMatchers("/**") (util na fase de desenvolvimento)
-	 *  
+
+	/*
+	 * - para "desligar" o filtro de autenticacao do spring security descomentar o
+	 * metodo configure abaixo. este metodo libera o acesso para todos os recurso de
+	 * acordo com o padrao passado na url antMatchers("/**") (util na fase de
+	 * desenvolvimento)
+	 * 
 	 * - para "ligar" a autenticacao basta comentar esse metodo.
 	 */
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http
-//        .authorizeRequests()
-//            .antMatchers("/**").permitAll();
-//	}
-	
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests()
+			.antMatchers("/**").permitAll()
+			.antMatchers("/h2admin/**").permitAll(); // liberar acesso ao admin do h2
+		http.csrf().disable();
+		http.headers().frameOptions().disable();
+	}
 
 }
-
