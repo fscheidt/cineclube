@@ -18,10 +18,15 @@ A [spring-boot](https://spring.io/projects/spring-boot) web application to manag
 ## Configurations
 
 ### H2 - admin
-- URL: http://localhost:8080/h2admin/
-- JDBC URL: jdbc:h2:file:~/h2files/cinedb2
-- User name: admin
-- Password: 1234
+
+|  property | value                          |
+| ---------:| ------------------------------ |
+|       URL | http://localhost:8080/h2admin/ |
+|  JDBC URL | jdbc:h2:file:~/h2files/cinedb2 |
+|  JDBC mem | jdbc:h2:mem:cinedb2            | 
+| User name | admin                          |
+|  Password | 1234                           |
+
 
 ## Roadmap 🗺️
 
