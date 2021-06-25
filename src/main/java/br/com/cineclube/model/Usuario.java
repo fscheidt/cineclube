@@ -26,9 +26,12 @@ public class Usuario {
 	@Column(nullable = false, unique=true)
 	private String email;
 	
-	@NotBlank(message="Campo password obrigatorio")
 	@Column(nullable = false)
 	private String password;
+	
+	@NotBlank(message="obrigatorio nivel de autorização")
+	@Column(nullable = false)
+	private String roles;
 
 	public Long getId() {
 		return id;
@@ -60,6 +63,14 @@ public class Usuario {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRoles() {
+		return roles;
+	}
+
+	public void setRoles(String roles) {
+		this.roles = roles;
 	}
 	
 

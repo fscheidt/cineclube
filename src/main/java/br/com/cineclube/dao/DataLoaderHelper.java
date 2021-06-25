@@ -106,9 +106,10 @@ public class DataLoaderHelper {
 		BCryptPasswordEncoder passEncoder = new BCryptPasswordEncoder();
 		
 		Usuario maria = new Usuario();
-		maria.setEmail("maria90@test.org");		
+		maria.setEmail("maria90@test.org");
 		maria.setPassword(passEncoder.encode("1q2w3e"));
 		maria.setNome("Maria Aparecida");
+		maria.setRoles("USER");
 		daoUser.save(maria);
 		
 	}
