@@ -112,6 +112,13 @@ public class DataLoaderHelper {
 		maria.setRoles("USER");
 		daoUser.save(maria);
 		
+		Usuario admin = new Usuario();
+		admin.setEmail("admin@test.org");
+		admin.setPassword(passEncoder.encode("1234"));
+		admin.setNome("Admin");
+		admin.setRoles("ADMIN");
+		daoUser.save(admin);
+		
 	}
 	@Bean
 	public CommandLineRunner loader(FilmeRepository daof, PessoaRepository daop, 

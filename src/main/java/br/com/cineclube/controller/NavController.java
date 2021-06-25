@@ -11,4 +11,5 @@ public class NavController {
 		return "index.html";
 	}
 
+
 }

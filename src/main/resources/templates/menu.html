@@ -12,8 +12,17 @@
         <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/filmes/list}">Filmes</a></li>
         <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/pessoas/list}">Pessoas</a></li>
         <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/categorias/list}">Categorias</a></li>
-        <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a></li>
+		<li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/usuarios/list}">Usuarios</a></li>
+		<div sec:authorize="isAuthenticated()" style="display:flex;">
+			<li class="nav-item"><a class="nav-link active" style='color:#eaff07' aria-current="page" th:href="@{/logout}">Logout</a></li>
+			<li class="nav-item"><span class="nav-link active" style='color:#7edff2' sec:authentication="name"></span></li>
+		</div>
+        <div sec:authorize="!isAuthenticated()" style="display:flex;">
+			<li class="nav-item"><a class="nav-link active" style='color:coral' aria-current="page">open access</a></li>
+		</div>
       </ul>
+      
+      
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>

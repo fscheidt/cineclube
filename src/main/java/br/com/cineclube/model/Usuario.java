@@ -31,7 +31,7 @@ public class Usuario {
 	
 	@NotBlank(message="obrigatorio nivel de autorização")
 	@Column(nullable = false)
-	private String roles;
+	private String roles; // perfis de acesso (ADMIN, USER, ...) - ou implementar com Enum
 
 	public Long getId() {
 		return id;

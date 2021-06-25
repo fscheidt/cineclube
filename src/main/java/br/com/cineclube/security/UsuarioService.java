@@ -1,25 +1,31 @@
 package br.com.cineclube.security;
 
-import java.util.ArrayList;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import br.com.cineclube.dao.UsuarioRepository;
+import br.com.cineclube.model.Usuario;
 
 @Service
 public class UsuarioService implements UserDetailsService {
 	// Nossa service precisa implementar a interface UserDetailsService
 
+	@Autowired
+	UsuarioRepository dao;
 	// carrega do database os dados do usuario de acordo com o username fornecido
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// por contrato precisamos implementar o metodo loadUserByUsername
-		
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();		
-		return new User("maria", passwordEncoder.encode("1q2w3e"), new ArrayList<>());
-		
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		// ir na UsuarioRepository e consultar se o usuario existe....
+		Usuario user = dao.findByEmail(email);
+		if (user==null) {
+			throw new UsernameNotFoundException("Login invalido");
+		}
+		UsuarioDetails usd = new UsuarioDetails(user);
+		return usd;
+
 	}
 }
 

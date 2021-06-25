@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,20 +35,41 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
-	/*
-	 * - para "desligar" o filtro de autenticacao do spring security descomentar o
-	 * metodo configure abaixo. este metodo libera o acesso para todos os recurso de
-	 * acordo com o padrao passado na url antMatchers("/**") (util na fase de
-	 * desenvolvimento)
-	 * 
-	 * - para "ligar" a autenticacao basta comentar esse metodo.
+	// painel admin do H2 - remover quando em producao
+	@Override
+	public void configure(WebSecurity web) {
+		// libera acesso ao padrao de url:
+		web.ignoring().antMatchers("/h2admin/**");
+	}
+
+	// libera acesso a todos os recursos (para desenvolvimento e pular a tela de login)
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//		http.authorizeRequests().anyRequest().permitAll();
+//	}
+
+	/**
+	 * CONFIGURACAO do esquema de autenticao baseado em sessao HttpSecurity eh uma
+	 * classe builder altamente customizavel com metodos que sao executados em
+	 * sequencia Cada metodo adiciona um filtro que eh aplicado para cada request
+	 * HTTP
 	 */
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-			.antMatchers("/**").permitAll()
-			.antMatchers("/h2admin/**").permitAll(); // liberar acesso ao admin do h2
-		http.csrf().disable();
-		http.headers().frameOptions().disable();
+	@Override
+	protected void configure(HttpSecurity httpSecurity) throws Exception {
+		httpSecurity
+        .csrf()
+        .disable()
+        .authorizeRequests()
+        .antMatchers("/login") // deixando a tela de login publica
+        .permitAll()
+        .anyRequest()
+        .authenticated()
+        .and().formLogin()
+        .and()
+          .logout()
+          .invalidateHttpSession(true)
+          .deleteCookies("JSESSIONID");
+		httpSecurity.headers().frameOptions().disable();
 	}
 
 }
