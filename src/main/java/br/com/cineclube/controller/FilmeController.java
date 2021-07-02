@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,6 +47,10 @@ public class FilmeController {
 		dao.deleteById(id);
 		return "redirect:/filmes/list";
 	}
+	// somente Admin pode acessar a pagina de edicao?
+//	@RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
+//	@PreAuthorize("hasRole('ADMIN')")
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/edit/{id}")
 	public String edit(@PathVariable Long id, Model model) {
 		Filme filme = dao.getOne(id);

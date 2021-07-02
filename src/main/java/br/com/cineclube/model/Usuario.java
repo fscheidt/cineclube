@@ -30,7 +30,7 @@ public class Usuario {
 	private String password;
 	
 	@NotBlank(message="obrigatorio nivel de autorização")
-	@Column(nullable = false)
+	@Column(nullable = false) // u.setRoles("ROLE_ADMIN,ROLE_USER")
 	private String roles; // perfis de acesso (ADMIN, USER, ...) - ou implementar com Enum
 
 	public Long getId() {

@@ -107,17 +107,24 @@ public class DataLoaderHelper {
 		
 		Usuario maria = new Usuario();
 		maria.setEmail("maria90@test.org");
-		maria.setPassword(passEncoder.encode("1q2w3e"));
+		maria.setPassword(passEncoder.encode("123"));
 		maria.setNome("Maria Aparecida");
-		maria.setRoles("USER");
+		maria.setRoles("ROLE_USER");
 		daoUser.save(maria);
 		
 		Usuario admin = new Usuario();
 		admin.setEmail("admin@test.org");
-		admin.setPassword(passEncoder.encode("1234"));
+		admin.setPassword(passEncoder.encode("123"));
 		admin.setNome("Admin");
-		admin.setRoles("ADMIN");
+		admin.setRoles("ROLE_ADMIN");
 		daoUser.save(admin);
+		
+		Usuario guest = new Usuario();
+		guest.setEmail("guest@test.org");
+		guest.setPassword(passEncoder.encode("123"));
+		guest.setNome("Guest");
+		guest.setRoles("ROLE_GUEST");
+		daoUser.save(guest);
 		
 	}
 	@Bean

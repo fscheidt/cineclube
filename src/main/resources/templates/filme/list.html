@@ -59,7 +59,12 @@
         <tr th:each="filme: ${filmeList}"> <!-- filmeList eh mapeado pelo objeto Model -->
           <td th:text="${filme.id}"/>
           <td>
-          	<a th:href="@{/filmes/edit/{id}(id=${filme.id})}" th:text="${filme.nome}"></a>
+		  
+		   <div th:switch="${#authorization.expression('hasRole(''ADMIN'')')}">
+	      	<a th:case='${true}' th:href="@{/filmes/edit/{id}(id=${filme.id})}" th:text="${filme.nome}"></a>
+	      	<a th:case="*" th:text="${filme.nome}"></a>
+	      </div>
+		  
           </td>
           <td th:text="${{filme.lancamento}}"/>
           <td th:text="${{filme.nota}}"/>

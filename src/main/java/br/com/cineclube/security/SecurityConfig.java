@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Um exemplo de uma simples autenticação de usuário
+ * Intercepta as requisicoes
  */
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
